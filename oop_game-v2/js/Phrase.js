@@ -9,7 +9,7 @@
     }
 
     // This function adds the phrase to the display by creating the li elements that hold each letter box.
-    addPhraseToDisplay(div) {
+    addPhraseToDisplay() {
         let html = '';
         let letter = '';
 
@@ -22,7 +22,7 @@
             }
         }
 
-        div.innerHTML = (html);
+        document.querySelector('#phrase > ul').innerHTML = (html);
     }
 
     // This function checks if a letter is contained in the this.phrase of the phrase object.
