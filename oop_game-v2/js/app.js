@@ -3,7 +3,7 @@
  * app.js */
 
  // Initializes the game object.
-let game;
+let game = null;
 
 // Adds an event listener to the start button on the overlay. When the button is clicked, it creates a new Game object and calls it's startGame method.
 document.querySelector("#btn__reset").addEventListener('click', () => {
@@ -22,10 +22,12 @@ document.querySelector("#qwerty").addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
     const keyboard = document.querySelectorAll("#qwerty div button");
 
-    for (let i = 0; i < keyboard.length; i++) {
-        if (keyboard[i].disabled === false) {
-            if (keyboard[i].textContent === e.key) {
-                game.handleInteraction(keyboard[i]);
+    if (game !== null) {
+        for (let i = 0; i < keyboard.length; i++) {
+            if (keyboard[i].disabled === false) {
+                if (keyboard[i].textContent === e.key.toLowerCase()) {
+                    game.handleInteraction(keyboard[i]);
+                }
             }
         }
     }
