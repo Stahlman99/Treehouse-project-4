@@ -28,10 +28,8 @@
     // This function checks if a letter is contained in the this.phrase of the phrase object.
     checkLetter(letter) {
         if (this.phrase.includes(letter.toLowerCase())) {
-            console.log('Letter match');
             return true;
         } else {
-            console.log('Letter fail');
             return false;
         }
     }
