@@ -20,11 +20,13 @@ document.querySelector("#qwerty").addEventListener('click', (e) => {
 
 // Adds an event listener to the document to add keyboard functionality.
 document.addEventListener('keydown', (e) => {
-    let keyboard = document.querySelectorAll("#qwerty div button");
+    const keyboard = document.querySelectorAll("#qwerty div button");
 
     for (let i = 0; i < keyboard.length; i++) {
-        if (keyboard[i].textContent === e.key) {
-            game.handleInteraction(keyboard[i]);
+        if (keyboard[i].disabled === false) {
+            if (keyboard[i].textContent === e.key) {
+                game.handleInteraction(keyboard[i]);
+            }
         }
     }
 });

@@ -25,7 +25,7 @@
 
     // This method selects a random phrase from our phrases array.
     getRandomPhrase() {
-        let randNum = Math.floor(Math.random() * 5);
+        const randNum = Math.floor(Math.random() * this.phrases.length);
         return this.phrases[randNum];
     }
 
@@ -34,22 +34,24 @@
     handleInteraction(letterKey) {
         letterKey.disabled = true;
 
-        if (this.activePhrase.checkLetter(letterKey.textContent)) {
-            letterKey.className = 'chosen';
-            this.activePhrase.showMatchedLetter(letterKey.textContent);
+        if (this.checkForWin() !== true) {
+            if (this.activePhrase.checkLetter(letterKey.textContent)) {
+                letterKey.className = 'chosen';
+                this.activePhrase.showMatchedLetter(letterKey.textContent);
 
-            if (this.checkForWin()) {
-                this.gameOver();
+                if (this.checkForWin()) {
+                    this.gameOver();
+                }
+            } else {
+                letterKey.className = 'wrong';
+                this.removeLife();
             }
-        } else {
-            letterKey.className = 'wrong';
-            this.removeLife();
         }
     }
 
     // This method replaces "heart" icons with "lost heart" icons. It then calls the gameOver method if all 5 hearts have been lost.
     removeLife() {
-        let hearts = document.querySelector("#scoreboard > ol");
+        const hearts = document.querySelector("#scoreboard > ol");
         let heartIndex = 4 - this.missed;
 
         hearts.children[heartIndex].firstElementChild.src = "images/lostHeart.png";
@@ -63,7 +65,7 @@
     // This method checks whether all the letters in the phrase have been given the 'show letter...' class. If so, the game is won, and the method returns true.
     checkForWin() {
         let gameWon = true;
-        let phraseElements = Array.from(document.querySelector("#phrase > ul").children);
+        const phraseElements = Array.from(document.querySelector("#phrase > ul").children);
 
         phraseElements.forEach(letter => {
             if (letter.className !== 'space') {
@@ -81,8 +83,8 @@
     // This method reveals the overlay and then calls the checkForWin method. It then displays the appropriate results based on whether the player won the game or not.
     // After that, it resets the game so that it can be played again.
     gameOver() {
-        let overlay = document.querySelector("#overlay");
-        let gameOverMessage = document.querySelector("#game-over-message");
+        const overlay = document.querySelector("#overlay");
+        const gameOverMessage = document.querySelector("#game-over-message");
 
         overlay.style.display = '';
 
@@ -96,13 +98,13 @@
 
         document.querySelector("#phrase > ul").textContent = '';
 
-        let keyboard = document.querySelectorAll("#qwerty div button");
+        const keyboard = document.querySelectorAll("#qwerty div button");
         for (let i = 0; i < keyboard.length; i++) {
             keyboard[i].className = 'key';
             keyboard[i].disabled = false;
         }
 
-        let hearts = document.querySelector("#scoreboard > ol");
+        const hearts = document.querySelector("#scoreboard > ol");
         for (let i = 0; i < hearts.children.length; i++) {
             hearts.children[i].firstElementChild.src = "images/liveHeart.png";            
         }
